@@ -161,8 +161,8 @@ export function TaskList() {
     }
   };
 
-  const isOverdue = (task: Task) => {
-    return task.dueDate && task.dueDate < new Date() && !task.completed;
+  const isOverdue = (task: Task): boolean => {
+    return !!(task.dueDate && task.dueDate < new Date() && !task.completed);
   };
 
   const getCompletionPercentage = (task: Task) => {
