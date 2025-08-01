@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focusly - Application TDAH/HPI</title>
+    <meta name="description" content="Application mobile pour aider les personnes atteintes de TDA/TDAH et HPI">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Focusly">
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .features {
+            list-style: none;
+        }
+        
+        .features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features li:last-child {
+            border-bottom: none;
+        }
+        
+        .features li span {
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+        
+        .install-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        
+        .install-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .status {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(40, 167, 69, 0.2);
+            border-radius: 15px;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+        
+        .status h3 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        
+        .github-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background 0.3s;
+        }
+        
+        .github-link:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Focusly</h1>
+            <p>Application TDAH/HPI</p>
+        </div>
+        
+        <div class="card">
+            <h2>✨ Fonctionnalités</h2>
+            <ul class="features">
+                <li><span>⏱️</span> Timer Pomodoro avec notifications</li>
+                <li><span>📋</span> Gestion des tâches avec priorités</li>
+                <li><span>🧠</span> 4 jeux cérébraux stimulants</li>
+                <li><span>🧘‍♀️</span> Guide de méditation et respiration</li>
+                <li><span>😊</span> Suivi d'humeur quotidien</li>
+                <li><span>📊</span> Analyses et score de bien-être</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>📱 Installation PWA</h2>
+            <p>Cette application peut être installée sur votre téléphone comme une vraie app !</p>
+            <button class="install-btn" onclick="installApp()">
+                Installer sur l'écran d'accueil
+            </button>
+        </div>
+        
+        <div class="status">
+            <h3>✅ Application Fonctionnelle</h3>
+            <p>Votre application Focusly est entièrement développée et prête à être utilisée !</p>
+            <a href="https://github.com/paul06-app/focusly" class="github-link" target="_blank">
+                📂 Voir le code sur GitHub
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+        
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('App installée');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                // Instructions manuelles pour l'installation
+                if (navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad')) {
+                    alert('Pour installer sur iOS :\n1. Cliquez sur le bouton Partage (carré avec flèche)\n2. Sélectionnez "Sur l\'écran d\'accueil"\n3. Cliquez "Ajouter"');
+                } else {
+                    alert('Pour installer :\n1. Cliquez sur le menu du navigateur (⋮)\n2. Sélectionnez "Ajouter à l\'écran d\'accueil"\n3. Confirmez l\'installation');
+                }
+            }
+        }
+        
+        // Enregistrer le service worker pour PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(console.error);
+        }
+    </script>
+</body>
+</html>
