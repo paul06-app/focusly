@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  basePath: '/focusly',
+  assetPrefix: '/focusly/',
   images: {
     unoptimized: true,
     remotePatterns: [
