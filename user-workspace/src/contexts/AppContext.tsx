@@ -46,12 +46,47 @@ interface AppProviderProps {
 }
 
 export function AppProvider({ children }: AppProviderProps) {
-  const [data, setData] = useState<AppData>(storage.getData());
+  const [data, setData] = useState<AppData>(() => {
+    // Initialisation sécurisée côté client uniquement
+    if (typeof window !== 'undefined') {
+      return storage.getData();
+    }
+    // Retourner des données par défaut côté serveur
+    return {
+      tasks: [],
+      timerSessions: [],
+      moodEntries: [],
+      brainGameScores: [],
+      meditationSessions: [],
+      settings: {
+        theme: 'dark',
+        notifications: {
+          enabled: true,
+          focusReminders: true,
+          taskDeadlines: true,
+          moodCheckins: true,
+        },
+        pomodoro: {
+          focusTime: 25,
+          shortBreak: 5,
+          longBreak: 15,
+          longBreakInterval: 4,
+        },
+        accessibility: {
+          fontSize: 'medium',
+          highContrast: false,
+          reducedMotion: false,
+        },
+      },
+      lastSync: new Date(),
+    };
+  });
   const [loading, setLoading] = useState(true);
 
-  // Charger les données au montage
+  // Charger les données au montage côté client
   useEffect(() => {
     try {
+      // Charger les vraies données côté client
       const storedData = storage.getData();
       setData(storedData);
       

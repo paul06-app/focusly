@@ -1,7 +1,22 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
-  "private": true,
+  "name": "focusly",
+  "version": "1.0.0",
+  "description": "Application mobile progressive pour aider les personnes atteintes de TDA/TDAH et HPI à gérer leur attention, concentration et bien-être",
+  "keywords": ["tdah", "adhd", "hpi", "concentration", "focus", "meditation", "productivity", "pwa", "nextjs"],
+  "homepage": "https://github.com/votre-username/focusly#readme",
+  "bugs": {
+    "url": "https://github.com/votre-username/focusly/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/votre-username/focusly.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Votre Nom",
+    "email": "votre.email@example.com"
+  },
+  "private": false,
   "scripts": {
     "dev": "PORT=8000 next dev --turbopack",
     "build": "next build",

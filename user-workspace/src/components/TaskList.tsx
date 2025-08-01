@@ -442,6 +442,7 @@ function TaskCard({
               {showSubTasks && (
                 <div className="space-y-2">
                   {task.subtasks.map((subTask) => (
+                    <div key={subTask.id} className="flex items-center gap-2">
                       <Checkbox
                         checked={subTask.completed}
                         onCheckedChange={() => onToggleSubTask(subTask.id)}

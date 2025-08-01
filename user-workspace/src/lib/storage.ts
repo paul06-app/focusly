@@ -39,7 +39,9 @@ export const storage = {
   // Récupérer toutes les données
   getData(): AppData {
     try {
-      if (typeof window === 'undefined') return defaultAppData;
+      if (typeof window === 'undefined' || !window.localStorage) {
+        return defaultAppData;
+      }
       
       const stored = localStorage.getItem(STORAGE_KEY);
       if (!stored) return defaultAppData;
@@ -83,7 +85,9 @@ export const storage = {
   // Sauvegarder toutes les données
   setData(data: AppData): void {
     try {
-      if (typeof window === 'undefined') return;
+      if (typeof window === 'undefined' || !window.localStorage) {
+        return;
+      }
       
       const dataToStore = {
         ...data,
@@ -99,6 +103,9 @@ export const storage = {
   // Sauvegarder partiellement
   updateData(updates: Partial<AppData>): void {
     try {
+      if (typeof window === 'undefined' || !window.localStorage) {
+        return;
+      }
       const currentData = this.getData();
       const newData = { ...currentData, ...updates };
       this.setData(newData);
@@ -110,7 +117,9 @@ export const storage = {
   // Effacer toutes les données
   clearData(): void {
     try {
-      if (typeof window === 'undefined') return;
+      if (typeof window === 'undefined' || !window.localStorage) {
+        return;
+      }
       localStorage.removeItem(STORAGE_KEY);
     } catch (error) {
       console.error('Erreur lors de la suppression des données:', error);
@@ -120,6 +129,9 @@ export const storage = {
   // Exporter les données
   exportData(): string {
     try {
+      if (typeof window === 'undefined' || !window.localStorage) {
+        return JSON.stringify(defaultAppData, null, 2);
+      }
       const data = this.getData();
       return JSON.stringify(data, null, 2);
     } catch (error) {
@@ -131,6 +143,9 @@ export const storage = {
   // Importer les données
   importData(jsonData: string): boolean {
     try {
+      if (typeof window === 'undefined' || !window.localStorage) {
+        return false;
+      }
       const data = JSON.parse(jsonData);
       this.setData(data);
       return true;
